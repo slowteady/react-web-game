@@ -14,6 +14,7 @@
       first: Math.ceil(Math.random() * 9),
       second: Math.ceil(Math.random() * 9),
       value: '',
+      result: '',
     }
 
     onChange = (e) => {
@@ -22,9 +23,24 @@
 
     onSubmit = (e) => {
       e.preventDefault();
-      // 입력한 값이 정답인지 검증하는 로직 
+      const correct = this.state.first * this.state.second;
+      if(parseInt(this.state.value) === correct) {
+        this.setState((prevState) => {
+          return {
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            result: `정답! : ${prevState.value}`,
+            value: '',
+          };
+        });
+      } else {
+        this.setState({
+          result: `땡! 정답은 ${correct} 입니다`,
+          value: '',
+        });
+      }
     }
-
+    
     // DOM
     render() {
       return (
@@ -36,6 +52,7 @@
               입력  
             </button>
           </form>
+          <div>{this.state.result}</div>
         </React.Fragment>
       )
     }
