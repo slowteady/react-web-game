@@ -33,21 +33,25 @@
             value: '',
           };
         });
+        this.input.focus();
       } else {
         this.setState({
           result: `땡! 정답은 ${correct} 입니다`,
           value: '',
         });
+        this.input.focus();
       }
     }
     
+    input;
+
     // DOM
     render() {
       return (
         <React.Fragment>
           <div>{this.state.first} 곱하기 {this.state.second} 는?</div>
           <form onSubmit={this.onSubmit}>
-            <input type="number" value={this.state.value} onChange={this.onChange}/>
+            <input ref={(c) => { this.input = c; }} type="number" value={this.state.value} onChange={this.onChange}/>
             <button>
               입력  
             </button>
