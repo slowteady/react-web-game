@@ -3,11 +3,15 @@ const { Component } = React;
 
 class WordRelay extends Component {
     state = {
-      text: 'Hello, webpack',
+      word: '이용민',
     };
 
     render() {
-      return <h1>{this.state.text}</h1>
+      return (
+        <>
+          <div>${this.state.word}</div>
+        </>
+      )
     }
 }
 
