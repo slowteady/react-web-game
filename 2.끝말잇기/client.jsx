@@ -1,5 +1,6 @@
 const React = require('react');
-const ReactDom = require('react-dom');
-const WordRelay = require('./WordRelay');
+const { createRoot } = require('react-dom/client');
+const WordRelay = require('./WordRelay-function');
 
-ReactDom.render(<WordRelay />, document.querySelector('#root'));
+const root = createRoot(document.querySelector('#root'));
+root.render(<WordRelay />);
