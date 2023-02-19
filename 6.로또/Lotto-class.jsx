@@ -20,6 +20,54 @@ class Lotto extends Component {
     redo: false
   }
 
+  timeouts = [];
+
+  runTimeouts = () => {
+    const { winNumbers } = this.state;
+
+    for(let i = 0; i < winNumbers.length - 1; i++) {
+      this.timeouts[i] = setTimeout(() => {
+        this.setState((prevState) => {
+          return {
+            winBalls: [...prevState.winBalls, winNumbers[i]]
+          }
+        });
+      }, (i + 1) * 1000);
+    }
+    this.timeouts[6] = setTimeout(() => {
+      this.setState({
+        bonus: winNumbers[6],
+        redo: true
+      });
+    }, 7000);
+  }
+
+  onClickRedo = () => {
+    this.setState({
+      winNumbers: getWinNumbers(), // 당첨 숫자들
+      winBalls: [],
+      bonus: null, // 보너스 공
+      redo: false,
+    });
+    this.timeouts = [];
+  }
+
+  componentDidMount() { // 컴포넌트 첫 렌더링 직후
+    this.runTimeouts();
+  }
+
+  componentDidUpdate() { // state 변경 시 
+    if(this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
+  }
+
+  componentWillUnmount() { // 컴포넌트 제거 전
+    this.timeouts.forEach((v) => {
+      clearTimeout(v);
+    });
+  }
+
   render() {
     const { winBalls, bonus, redo } = this.state;
     return (
@@ -29,6 +77,8 @@ class Lotto extends Component {
           {winBalls.map((v) => <Ball key={v} number={v} />)}
         </div>
         <div>보너스!</div>
+        {bonus ? <Ball number={bonus} /> : null}
+        {redo ? <button onClick={this.onClickRedo}>리셋</button> : null}
       </>
     )
   }
