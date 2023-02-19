@@ -1,0 +1,8 @@
+import React, { useState } from 'react';
+
+const Lotto = () => {
+
+}
+
+
+export default Lotto;
