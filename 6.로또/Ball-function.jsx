@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 
 const Ball = memo(({ number }) => {
   let background;
