@@ -13,6 +13,7 @@ function getWinNumbers() {
 }
 
 const Lotto = () => {
+  console.log(1);
   const lottoNumbers = useMemo(() => getWinNumbers(), []);
   const [winNumbers, setWinNumbers] = useState(lottoNumbers);
   const [winBalls, setWinBalls] = useState([]);
@@ -24,12 +25,12 @@ const Lotto = () => {
   배열에 요소가 있으면 componentDidMount랑 componentDidUpdate 둘 다 수행 */
   useEffect(() => {
     for(let i = 0; i < winNumbers.length - 1; i++) {
-      timeouts[i].current = setTimeout(() => {
+      timeouts.current[i] = setTimeout(() => {
         setWinBalls((prevBalls) => [...prevBalls, winNumbers[i]]);
       }, (i + 1) * 1000);
     }
 
-    timeouts[6].current = setTimeout(() => {
+    timeouts.current[6] = setTimeout(() => {
       setBonus(winNumbers[6]);
       setRedo(true);
     }, 7000);
