@@ -1,9 +1,13 @@
 import React from 'react';
+import Td from './Td';
 
-const Tr = () => {
+const Tr = ({ rowIndex, rowData, dispatch }) => {
   return (
-    <Tr></Tr>
+    <tr>
+      {Array(rowData.length).fill().map((td, i) => 
+        <Td key={i} dispatch={dispatch} cellIndex={i} cellData={rowData[i]} rowIndex={rowIndex}>{''}</Td>)}
+    </tr>
   )
 }
 
-export default Tr;
+export default Tr; 
